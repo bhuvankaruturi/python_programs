@@ -49,4 +49,3 @@ writer = pd.ExcelWriter('union_territories.xlsx')
 df.to_excel(writer,'Sheet1')
 writer.save()
 print('Completed SuccesFully. Find the output in union_territories.xlsx')
-#class_ = 'wikitable sortable plainrowheaders jquery-tablesorter'
