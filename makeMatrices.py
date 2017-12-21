@@ -2,39 +2,84 @@ def makeMatrix(size, start, doIncrement):
     a = []
 	
     num = start
-    
-    for x in range(size):
-        a.append([])
-        
-    for x in range(size):
-        for y in range(size):
-            a[x].append(num)
-            if doIncrement:
-                num += 1
-    return a
-	
+    try:
+        if size <= 0:
+           raise Exception("The size cannot be negative or zero")
+        else:
+            for x in range(size):
+                a.append([])
+
+            for x in range(size):
+                for y in range(size):
+                    a[x].append(num)
+                    if doIncrement:
+                        num += 1
+            return a
+    except Exception as error:
+        print(error)
+
+
 def printMatrix(matrix):
     a = matrix
+    if(a != None):
+        for x in range(len(a)):
+            for y in range(len(a[x])):
+                print(a[x][y], end='\t')
+            print()
+    else:
+        print("The matrix is null or size is zero")
 
-    for x in range(len(a)):
-        for y in range(len(a[x])):
-            print(a[x][y], end='\t')
-        print()
-
-def upperL():
-    a = makeMatrix(4, 0, False)
-    num = 1
-    
-    for x in range(len(a)):
-        for y in range(len(a)):
-            if x == 0:
+def upperL(mat, row, col, start):
+    a = mat
+    num = start
+    endRow = len(a) - row
+    endCol = len(a) - col
+    if endRow - 1 == row and endCol - 1 == col:
+        a[row][col] = num + 1
+        return a
+    for x in range(row, endRow):
+        for y in range(col, endCol):
+            num += 1
+            if x == row:
                 a[x][y] = num
-                num += 1
             else:
-                a[x][len(a)-1] = num
-                num += 1
+                a[x][endCol - 1] = num
                 break
-    return a
+    print()
+    printMatrix(a)
+    return lowerL(a, endRow - 1, endCol - 2, num)
 
 
-printMatrix(upperL())
+
+def lowerL(mat, row, col, start):
+    a = mat
+    endRow = len(a) - 1 - col
+    endCol = len(a) - 1 - row
+    num = start
+    if endRow == row and endCol == col:
+        a[row][col] = num + 1
+        return a
+    else:
+        for x in range(row, endRow - 1, -1):
+            for y in range(col, endCol - 1, -1):
+                num += 1
+                if x == row:
+                    a[x][y] = num
+                else:
+                    a[x][endCol] = num
+                    break
+        print()
+        printMatrix(a)
+        return upperL(a, endRow, endCol + 1, num)
+
+mat = makeMatrix(2, 0, False)
+printMatrix(mat)
+
+def modifyMatrix(mat):
+    if (mat != None):
+        mat = upperL(mat, 0, 0, 0)
+        print()
+        printMatrix(mat)
+
+modifyMatrix(mat)
+
