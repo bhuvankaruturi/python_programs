@@ -1,3 +1,4 @@
+#create a matrix of specified 'size', elements 'start' value and should the elements be incremented
 def makeMatrix(size, start, doIncrement):
     a = []
 	
@@ -18,7 +19,7 @@ def makeMatrix(size, start, doIncrement):
     except Exception as error:
         print(error)
 
-
+#method to print the matrix passed as argument
 def printMatrix(matrix):
     a = matrix
     if(a != None):
@@ -29,6 +30,7 @@ def printMatrix(matrix):
     else:
         print("The matrix is null or size is zero")
 
+#Method to add numbers in a sequence to upper L
 def upperL(mat, row, col, start):
     a = mat
     num = start
@@ -45,12 +47,12 @@ def upperL(mat, row, col, start):
             else:
                 a[x][endCol - 1] = num
                 break
-    print()
-    printMatrix(a)
+    #print()
+    #printMatrix(a)
     return lowerL(a, endRow - 1, endCol - 2, num)
 
 
-
+#Method to add numbers in a sequence to lower L
 def lowerL(mat, row, col, start):
     a = mat
     endRow = len(a) - 1 - col
@@ -68,13 +70,15 @@ def lowerL(mat, row, col, start):
                 else:
                     a[x][endCol] = num
                     break
-        print()
-        printMatrix(a)
+        #print()
+        #printMatrix(a)
         return upperL(a, endRow, endCol + 1, num)
 
+#creation of matrix with index 2, starting element 0, setting element values to be incremented as False
 mat = makeMatrix(2, 0, False)
 printMatrix(mat)
 
+#modify the created matrix to add numbers in a circular pattern.
 def modifyMatrix(mat):
     if (mat != None):
         mat = upperL(mat, 0, 0, 0)
